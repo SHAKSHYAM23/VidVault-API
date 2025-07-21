@@ -1,157 +1,138 @@
- gitignore is created by gitignore generator whose url is  https://mrkandreev.name/snippets/gitignore-generator/
+VideoVault:
+
+
+A full-stack video sharing platform inspired by YouTube, built with the MERN stack.
+VideoVault allows users to upload, view, like, comment on, and manage videos, with powerful authentication and real-time features.
+
+Table of Contents
+🚀 Demo
+
+🧩 Tech Stack
+
+✅ Features
+
+📁 Folder Structure
+
+⚙️ Getting Started
+
+🔐 Environment Variables
+
+📡 API Endpoints
+
+🤝 Contributing
+
+📄 License
+
+
+Tech stack 
+Node.js with Express.js
+
+MongoDB with Mongoose
+
+JWT for authentication
+
+Cloudinary for video/image upload
+
+Socket.IO (planned) for real-time updates
 
 
 
- package.json type ko module change kiya hai
+Features
+🔐 Authentication
+JWT-based login & registration
+
+Password hashing with Bcrypt
+
+Optional email verification
+
+📹 Video Management
+Upload videos (Cloudinary)
+
+Edit or delete videos
+
+Track views, likes, and comments
+
+🗣️ Social Features
+Like/Dislike videos
+
+Subscribe/Unsubscribe to users
+
+Comment on videos
+
+View user profiles & channels
+
+🔍 Search & Explore
+Search videos by title/tags
+
+Explore trending & recent videos
+
+Filter by category
 
 
- npm init
-
- Installing nodemon
- npm i -D nodemon
- it is a dev dependency
-
-  "scripts": {
-    "dev": "nodemon 03project/src/index.js"
-  },
-
-
-  installing prettier
-  npm i -D prettier
-  
-
-  npm i mongoose express dotenv
-
-  mongodb atlas
-  https://cloud.mongodb.com/v2/67db0abfbc01212e958e0501#/security/network/accessList
-   
-app.use()
-npm i cookie-parser
-   npm i cors
-
-   nodejs error  read about these
-
-   
-
-DB is another continent, hence use promises or try-catch with async-await whenever you are connecting to any database
-
-1. Assignments : 
-    - Read about process and exit() method in nodejs
-    - Console log karke dekho joh object DB connect hone par return hota hai.
-
-2. Tips: 
-    - Read the errors before referring to any material for resolving.
-    - write error statements in a clear manner, debuggging mei help karegi.
-    - env file mei change karte hi, server ko restart karna hi padega, no other option, nodemon env files ka track nahi rakhta.
-
-const promiseOne = new Promise(function(resolve, reject){
-    //Do an async task
-    // DB calls, cryptography, network
-    setTimeout(function(){
-        console.log('Async task is compelete');
-        resolve()
-    }, 1000)
-})
-
-promiseOne.then(function(){
-    console.log("Promise consumed");
-})
-
-new Promise((resolve,reject)=>{
-    setTimeout(function(){
-        console.log("Async task 2");
-        resolve()
-    }, 1000)
-}).then(()=>{
-    
-})
-
-new Promise(function(resolve, reject){
-    setTimeout(function(){
-        console.log("Async task 2");
-        resolve()
-    }, 1000)
-
-}).then(function(){
-    console.log("Async 2 resolved");
-})
-
-const promiseThree = new Promise(function(resolve, reject){
-    setTimeout(function(){
-        resolve({username: "Chai", email: "chai@example.com"})
-    }, 1000)
-})
-
-promiseThree.then(function(user){
-    console.log(user);
-})
-
-const promiseFour = new Promise(function(resolve, reject){
-    setTimeout(function(){
-        let error = true
-        if (!error) {
-            resolve({username: "hitesh", password: "123"})
-        } else {
-            reject('ERROR: Something went wrong')
-        }
-    }, 1000)
-})
-
- promiseFour
- .then((user) => {
-    console.log(user);
-    return user.username
-}).then((username) => {
-    console.log(username);
-}).catch(function(error){
-    console.log(error);
-}).finally(() => console.log("The promise is either resolved or rejected"))
+ Folder Structure
+ video-vault/
+├── src/
+│   ├── controllers/        # Route business logic
+│   ├── models/             # MongoDB schemas via Mongoose
+│   ├── routes/             # Express route definitions
+│   ├── middleware/         # Auth, error handling
+│   ├── utils/              # Cloudinary & helper functions
+│   ├── db/                 # MongoDB connection logic
+│   └── index.js            # Entry point of the backend server
+├── .env
+├── package.json
+└── README.md
 
 
+Insttallation steps
+# 1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/video-vault.git   ✅ CHANGE: Replace YOUR_USERNAME
+cd video-vault
 
-const promiseFive = new Promise(function(resolve, reject){
-    setTimeout(function(){
-        let error = true
-        if (!error) {
-            resolve({username: "javascript", password: "123"})
-        } else {
-            reject('ERROR: JS went wrong')
-        }
-    }, 1000)
-});
+# 2. Install dependencies
+npm install
 
-async function consumePromiseFive(){
-    try {
-        const response = await promiseFive  //time lagta hai isleye await use kar rahwe hai
-        console.log(response);
-    } catch (error) {
-        console.log(error);
-    }
-}
+# 3. Create a .env file
+cp .env.example .env
 
-consumePromiseFive()
+# 4. Fill the environment variables inside .env
 
-// async function getAllUsers(){
-//     try {
-//         const response = await fetch('https://jsonplaceholder.typicode.com/users')
+# 5. Run the server
+npm run dev
 
-//         const data = await response.json()
-//         console.log(data);
-//     } catch (error) {
-//         console.log("E: ", error);
-//     }
-// }
 
-//getAllUsers()
+Environmental Variable
+MONGODB_URI=your_mongo_db_connection_string        
+JWT_SECRET=your_jwt_secret                          
+CLOUDINARY_CLOUD_NAME=your_cloud_name               
+CLOUDINARY_API_KEY=your_cloudinary_api_key          
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret  
 
-fetch('https://api.github.com/users/hiteshchoudhary')
-.then((response) => {
-    return response.json()
-})
-.then((data) => {
-    console.log(data);
-})
-.catch((error) => console.log(error))
+📡 API Endpoints (Backend)
+These are some example endpoints. You can expand them as needed:
 
-// promise.all
-// yes this is also available, kuch reading aap b kro.
+👤 Auth
+POST /api/v1/users/register – Register a new user
+
+POST /api/v1/users/login – Login and receive JWT
+
+📹 Video
+POST /api/v1/videos/upload – Upload a video
+
+PUT /api/v1/videos/:id – Edit a video
+
+DELETE /api/v1/videos/:id – Delete a video
+
+GET /api/v1/videos/explore – Discover trending videos
+
+💬 Comments
+POST /api/v1/comments/:videoId – Add comment to a video
+
+GET /api/v1/comments/:videoId – Fetch all comments
+
+❤️ Likes & Subscriptions
+POST /api/v1/videos/:id/like
+
+POST /api/v1/users/:id/subscribe
+
+
